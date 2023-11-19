@@ -1,0 +1,23 @@
+CREATE DATABASE IF NOT EXISTS student_health;
+USE student_health;
+
+CREATE TABLE health_data (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  student_name VARCHAR(255),
+  temperature FLOAT,
+  blood_pressure VARCHAR(20),
+  other_details TEXT
+);
+
+INSERT INTO health_data (student_name, temperature, blood_pressure, other_details)
+VALUES ('John Doe', 98.6, '120/80', 'No specific details');
+
+SELECT * FROM health_data;
+
+DROP USER 'admin'@'localhost';
+CREATE USER 'admin'@'localhost' IDENTIFIED WITH 'caching_sha2_password' BY 'admin';
+GRANT ALL PRIVILEGES ON yourdatabasename.* TO 'admin'@'localhost';
+FLUSH PRIVILEGES;
+GRANT ALL PRIVILEGES ON student_health.* TO 'admin'@'localhost';
+FLUSH PRIVILEGES;
+ALTER USER 'admin'@'localhost' IDENTIFIED WITH mysql_native_password BY 'admin';

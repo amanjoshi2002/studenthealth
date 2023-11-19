@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Records</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #3498db;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button.admin-btn {
+            background-color: #2ecc71;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #ecf0f1;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Health Records</h1>
+        <form method="GET" action="{{ url_for('admin_page') }}">
+            <button class="admin-btn" type="submit">Admin</button>
+        </form>
+    </header>
+
+    <form method="POST" action="{{ url_for('add_record') }}">
+        <label for="student_name">Student Name:</label>
+        <input type="text" name="student_name" required>
+
+        <label for="temperature">Temperature:</label>
+        <input type="number" step="0.1" name="temperature" required>
+
+        <label for="blood_pressure">Blood Pressure:</label>
+        <input type="text" name="blood_pressure" required>
+
+        <label for="other_details">Other Details:</label>
+        <textarea name="other_details" rows="4"></textarea>
+
+        <button type="submit">Add Record</button>
+    </form>
+</body>
+</html>

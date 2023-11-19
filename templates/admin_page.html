@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #3498db;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        a {
+            display: inline-block;
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Page</h1>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Student Name</th>
+            <th>Temperature</th>
+            <th>Blood Pressure</th>
+            <th>Other Details</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        {% for record in records %}
+            <tr>
+                <td>{{ record.id }}</td>
+                <td>{{ record.student_name }}</td>
+                <td>{{ record.temperature }}</td>
+                <td>{{ record.blood_pressure }}</td>
+                <td>{{ record.other_details }}</td>
+                <td><a href="{{ url_for('edit_record', id=record.id) }}">Edit</a></td>
+                <td><a href="{{ url_for('delete_record', id=record.id) }}">Delete</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Button to go back to index.html -->
+    <a href="{{ url_for('index') }}">Go back to Index</a>
+</body>
+</html>
