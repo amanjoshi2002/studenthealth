@@ -1,3 +1,4 @@
+<!-- admin_page.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,10 +45,34 @@
         a:hover {
             background-color: #2980b9;
         }
+
+        .search-container {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        button.search-btn {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 8px 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <h1>Admin Page</h1>
+
+    <div class="search-container">
+        <label for="search">Search:</label>
+        <input type="text" id="search" name="search" placeholder="Enter student name">
+        <button class="search-btn" onclick="searchRecords()">Search</button>
+    </div>
 
     <table>
         <tr>
@@ -74,5 +99,12 @@
 
     <!-- Button to go back to index.html -->
     <a href="{{ url_for('index') }}">Go back to Index</a>
+
+    <script>
+        function searchRecords() {
+            var searchValue = document.getElementById('search').value;
+            window.location.href = "{{ url_for('admin_page') }}?search=" + searchValue;
+        }
+    </script>
 </body>
 </html>
