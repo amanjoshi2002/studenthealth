@@ -28,9 +28,19 @@ def login_required(f):
 static_username = 'admin'
 static_password = 'password'
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    query = text("SELECT * FROM health_data")
+    if request.method == 'POST':
+        # Handle the form submission for adding records (if needed)
+        pass
+
+    # Fetch all records from the database
+    if 'search' in request.args:
+        search_query = request.args['search']
+        query = text(f"SELECT * FROM health_data WHERE student_name LIKE '%%{search_query}%%'")
+    else:
+        query = text("SELECT * FROM health_data")
+
     records = db.session.execute(query)
 
     rows = records.fetchall()
@@ -107,13 +117,24 @@ def delete_record(id):
     return redirect(url_for('admin_page'))
 
 
-@app.route('/admin_page')
+@app.route('/admin_page', methods=['GET', 'POST'])
 @login_required
 def admin_page():
     # Fetch all records from the database
-    records = HealthData.query.all()
+    if 'search' in request.args:
+        search_query = request.args['search']
+        query = text(f"SELECT * FROM health_data WHERE student_name LIKE '%%{search_query}%%'")
+    else:
+        query = text("SELECT * FROM health_data")
 
-    return render_template('admin_page.html', records=records)
+    records = db.session.execute(query)
+
+    rows = records.fetchall()
+    columns = records.keys()
+    records_list = [dict(zip(columns, row)) for row in rows]
+
+    return render_template('admin_page.html', records=records_list)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
