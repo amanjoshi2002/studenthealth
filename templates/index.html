@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,16 +45,21 @@
             background-color: #2ecc71;
         }
 
-        ul {
-            list-style: none;
-            padding: 0;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
 
-        li {
-            background-color: #ecf0f1;
-            margin-bottom: 10px;
+        th, td {
+            border: 1px solid #ddd;
             padding: 10px;
-            border-radius: 5px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
         }
     </style>
 </head>
@@ -80,5 +86,28 @@
 
         <button type="submit">Add Record</button>
     </form>
+
+    <form method="GET" action="{{ url_for('index') }}">
+        <label for="search">Search by Name:</label>
+        <input type="text" name="search" placeholder="Enter student name">
+        <button type="submit">Search</button>
+    </form>
+
+    <table>
+        <tr>
+            <th>Student Name</th>
+            <th>Temperature</th>
+            <th>Blood Pressure</th>
+            <th>Other Details</th>
+        </tr>
+        {% for record in records %}
+            <tr>
+                <td>{{ record.student_name }}</td>
+                <td>{{ record.temperature }}</td>
+                <td>{{ record.blood_pressure }}</td>
+                <td>{{ record.other_details }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>
